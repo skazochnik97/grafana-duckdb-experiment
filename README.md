@@ -4,6 +4,10 @@ prereq:
 - `OS: Ubuntu 22.04 LTS`
 - `2CPU, 4Gb RAM, 8Gb HDD (t2.medium)`
 
+outcome:
+- `PostreSQL 16`
+- `duckdb_fdw 1.1`
+- `libduckdb 0.9.2`
 
 # Install PostgreSQL 16
 ```bash
@@ -26,9 +30,10 @@ make USE_PGXS=1
 make install USE_PGXS=1
 ```
 
-# Connect to postgres
+# Install extension to postgres
 ```bash
 sudo -u postgres psql -U postgres -c "create extension duckdb_fdw;"
+sudo -u postgres psql -U postgres -c "SELECT * FROM pg_available_extensions where name='duckdb_fdw';"
 ```
 
 # Install Grafana
