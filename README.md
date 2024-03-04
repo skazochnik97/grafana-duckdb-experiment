@@ -1,5 +1,8 @@
 # grafana-duckdb-experiment
 
+# Plan
+
+
 prereq:
 - `OS: Ubuntu 22.04 LTS`
 - `2CPU, 4Gb RAM, 8Gb HDD (t2.medium)`
@@ -12,7 +15,7 @@ outcome:
 # Install PostgreSQL 16
 ```bash
 apt update
-DEBIAN_FRONTEND=noninteractive apt install gnupg2 wget vim apt-transport-https software-properties-common git clang build-essential unzip -y
+DEBIAN_FRONTEND=noninteractive apt install gnupg2 wget vim apt-transport-https software-properties-common git clang build-essential unzip p7zip-full -y
 echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/postgresql.gpg
 apt update
@@ -37,15 +40,31 @@ sudo -u postgres psql -U postgres -c "SELECT * FROM pg_available_extensions wher
 ```
 
 # Install Grafana
-```bash
 https://grafana.com/docs/grafana/latest/setup-grafana/installation/debian/
+```bash
 sudo mkdir -p /etc/apt/keyrings/
 wget -q -O - https://apt.grafana.com/gpg.key | gpg --dearmor | sudo tee /etc/apt/keyrings/grafana.gpg > /dev/null
 echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
 apt update
-apt-get install grafana
+DEBIAN_FRONTEND=noninteractive apt-get install grafana -y
 ```
 
+# Set database
+```bash
+mkdir /var/parquet
+mv parquet.7z /var/parquet/
+cd /var/parquet
+7z e parquet.7z
+rm -f parquet.7z
+```
+
+```sql
+CREATE SERVER duckdb_server
+FOREIGN DATA WRAPPER duckdb_fdw
+OPTIONS (
+        database '/var/parquet/Aggregations_*.parquet'
+);
+```
 -----
 # Add swap file (need to compile libduckdb only)
 ```bash
