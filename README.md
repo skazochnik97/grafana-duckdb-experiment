@@ -80,6 +80,7 @@ SERVER duckdb_server
 OPTIONS (
     table 'read_parquet("/var/parquet/Aggregations_*.parquet")'
 );
+select * from public.aggregations_table limit 10;
 ```
 
 
