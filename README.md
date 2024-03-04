@@ -1,7 +1,8 @@
 # grafana-duckdb-experiment
 
 # Plan
-
+- [1] The postgres plugin to use is https://github.com/alitrack/duckdb_fdw This plugin needs to be compiled on wsl linux ubuntu.
+- 2 once you have duckdb working, and able to read the data from postgres using the plugin, i need you to connect to this data using the postgres datasource in grafana
 
 prereq:
 - `OS: Ubuntu 22.04 LTS`
@@ -33,6 +34,12 @@ make USE_PGXS=1
 make install USE_PGXS=1
 ```
 
+```bash
+cd /usr/local/bin
+wget https://github.com/duckdb/duckdb/releases/download/v0.10.0/duckdb_cli-linux-amd64.zip
+unzip duckdb_cli-linux-amd64.zip
+```
+
 # Install extension to postgres
 ```bash
 sudo -u postgres psql -U postgres -c "create extension duckdb_fdw;"
@@ -59,12 +66,23 @@ rm -f parquet.7z
 ```
 
 ```sql
-CREATE SERVER duckdb_server
-FOREIGN DATA WRAPPER duckdb_fdw
+CREATE SERVER duckdb_server FOREIGN DATA WRAPPER duckdb_fdw OPTIONS (database ':memory:');
+select * from pg_foreign_server;
+\des+
+CREATE FOREIGN TABLE public.aggregations_table (
+    Key                    text,
+    Interval1Value         int,
+    Interval2Value         int,
+    Interval3Value         int,
+    Interval4Value         int
+)
+SERVER duckdb_server
 OPTIONS (
-        database '/var/parquet/Aggregations_*.parquet'
+    table 'read_parquet("/var/parquet/Aggregations_*.parquet")'
 );
 ```
+
+
 -----
 # Add swap file (need to compile libduckdb only)
 ```bash
