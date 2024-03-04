@@ -5,7 +5,7 @@ prereq:
 - `2CPU, 4Gb RAM, 8Gb HDD (t2.medium)`
 
 
-# Install PostgreSQL 16 (via https://dev.to/rainbowhat/postgresql-16-installation-on-ubuntu-2204-51ia )
+# Install PostgreSQL 16
 ```bash
 apt update
 DEBIAN_FRONTEND=noninteractive apt install gnupg2 wget vim apt-transport-https software-properties-common git clang build-essential unzip -y
@@ -15,7 +15,7 @@ apt update
 DEBIAN_FRONTEND=noninteractive apt install postgresql-16 postgresql-contrib-16 postgresql-server-dev-16 -y
 ```
 
-# Install duckdb extension (via https://github.com/alitrack/duckdb_fdw/pull/38 and https://github.com/digoal/blog/blob/master/202401/20240124_01.md)'
+# Install duckdb extension
 ```bash
 git clone -b main_9x-10x-support --depth 1 https://github.com/ahuarte47/duckdb_fdw
 cd duckdb_fdw
@@ -60,3 +60,8 @@ clang++ -shared -o libduckdb.so *.o
 
 cp libduckdb.so $(pg_config --libdir)
 ```
+
+# Links:
+- https://dev.to/rainbowhat/postgresql-16-installation-on-ubuntu-2204-51ia
+- https://github.com/alitrack/duckdb_fdw/pull/38
+- https://github.com/digoal/blog/blob/master/202401/20240124_01.md
