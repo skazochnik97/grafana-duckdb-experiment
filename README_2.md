@@ -4,7 +4,7 @@
 - [1] The postgres plugin to use is https://github.com/alitrack/duckdb_fdw This plugin needs to be compiled on wsl linux ubuntu.
 - [2] once you have duckdb working, and able to read the data from postgres using the plugin, i need you to connect to this data using the postgres datasource in grafana
 - [3] build an simple example dashboard grafana showing the key as a dropdown filter, and then a graph showing the value trend (you will see the Key is one of the columns in the parquet, and Interval1Value will be the count for that key)
-- 4 reload the duckdb every n minutes so that new parquet files that appear in a directory are automatically added to the duckdb database
+- 4 reload the duckdb every n minutes so that new parquet files that appear in a directory are automatically added to the duckdb database and also we need the filename of the parquet added as a column when the loading occurs
 
 prereq:
 - `OS: Ubuntu 22.04 LTS`
