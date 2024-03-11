@@ -75,7 +75,8 @@ CREATE FOREIGN TABLE public.aggregations_table (
     Interval1Value         int,
     Interval2Value         int,
     Interval3Value         int,
-    Interval4Value         int
+    Interval4Value         int,
+    filename               text
 )
 SERVER duckdb_server
 OPTIONS (
