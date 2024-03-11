@@ -79,7 +79,7 @@ CREATE FOREIGN TABLE public.aggregations_table (
 )
 SERVER duckdb_server
 OPTIONS (
-    table 'read_parquet("/var/parquet/Aggregations_*.parquet")'
+    table 'read_parquet("/var/parquet/Aggregations_*.parquet", filename=true)'
 );
 select * from public.aggregations_table limit 10;
 ```
