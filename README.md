@@ -24,6 +24,13 @@ apt update
 DEBIAN_FRONTEND=noninteractive apt install postgresql-16 postgresql-contrib-16 postgresql-server-dev-16 -y
 ```
 
+Add to the end of the config /etc/postgresql/16/main/pg_hba.conf:
+```
+host        all           all      127.0.0.1/32    md5
+```
+
+then execute: SELECT pg_reload_conf();
+
 # Install duckdb extension
 ```bash
 git clone -b main_9x-10x-support --depth 1 https://github.com/ahuarte47/duckdb_fdw
@@ -39,6 +46,7 @@ make install USE_PGXS=1
 cd /usr/local/bin
 wget https://github.com/duckdb/duckdb/releases/download/v0.10.0/duckdb_cli-linux-amd64.zip
 unzip duckdb_cli-linux-amd64.zip
+rm duckdb_cli-linux-amd64.zip
 ```
 
 # Install extension to postgres
@@ -57,6 +65,20 @@ apt update
 DEBIAN_FRONTEND=noninteractive apt-get install grafana -y
 ```
 
+fix in the config /etc/grafana/grafana.ini:
+```ini
+[security]
+admin_user = admin
+admin_password = admin
+[users]
+allow_sign_up = false
+allow_org_create = false
+```
+Run:
+```bash
+systemctl start grafana-server
+```
+
 # Set database
 ```bash
 mkdir /var/parquet
@@ -66,6 +88,7 @@ cd /var/parquet
 rm -f parquet.7z
 ```
 
+At sudo -u postgres psql -U postgres run:
 ```sql
 CREATE SERVER duckdb_server FOREIGN DATA WRAPPER duckdb_fdw OPTIONS (database ':memory:');
 select * from pg_foreign_server;
@@ -85,6 +108,22 @@ OPTIONS (
 select * from public.aggregations_table limit 10;
 ```
 
+Create user for grafana datasource:
+```sql
+CREATE USER grafanareader WITH PASSWORD 'password';
+GRANT USAGE ON SCHEMA public TO grafanareader;
+GRANT SELECT ON public.aggregations_table TO grafanareader;
+```
+
+test
+```bash
+PGPASSWORD=password psql -h 127.0.0.1 -U grafanareader postgres
+
+```
+then:
+```sql
+select * from public.aggregations_table limit 10;
+```
 
 -----
 # Add swap file (need to compile libduckdb only)
