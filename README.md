@@ -115,7 +115,8 @@ CREATE FOREIGN TABLE public.CISCORouterLog (
     "CRITICALITY"           text,
     "TABLE"                 text,
     "ACTION"                text,
-    "HOSTNAME"              text
+    "HOSTNAME"              text,
+    filename                text
 )
 SERVER duckdb_server
 OPTIONS (
@@ -145,7 +146,8 @@ CREATE FOREIGN TABLE public.IPTablesFirewall (
     "TABLE"                     text,
     "SRCADDR"                   text,
     "DSTPORT"                   text,
-    "HOSTNAME"                  text
+    "HOSTNAME"                  text,
+    filename                    text
 )
 SERVER duckdb_server
 OPTIONS (
@@ -165,7 +167,8 @@ CREATE FOREIGN TABLE public.LinuxAudit (
 "SUCCESS"                      text,
 "EVENTID"                      text,
 "TARGET"                       text,
-"HOSTNAME"                     text
+"HOSTNAME"                     text,
+filename                       text
 )
 SERVER duckdb_server
 OPTIONS (
@@ -184,7 +187,8 @@ CREATE FOREIGN TABLE public.MSSQLLog (
  "DBUSERNAME"                 text,
  "ROLENAME"                   text,
  "TARGETUSERNAME"             text,
- "HOSTNAME"                   text
+ "HOSTNAME"                   text,
+ filename                     text
 )
 SERVER duckdb_server
 OPTIONS (
@@ -223,7 +227,8 @@ CREATE FOREIGN TABLE public.PANFirewall (
 "URLCATEGORY"                 text,
 "APPLICATION"                 text,
 "SESSIONID"                   text,
-"HOSTNAME"                    text
+"HOSTNAME"                    text,
+ filename                     text
 )
 SERVER duckdb_server
 OPTIONS (
@@ -241,7 +246,8 @@ CREATE FOREIGN TABLE public.PIXLog (
  "DSTADDR"                    text,
  "TABLE"                      text,
  "STRING"                     text,
- "HOSTNAME"                   text
+ "HOSTNAME"                   text,
+ filename                     text
 )
 SERVER duckdb_server
 OPTIONS (
@@ -255,7 +261,8 @@ CREATE FOREIGN TABLE public.SnareServerLog (
 "ACTION"                     text,
 "USERNAME"                   text,
 "RESOURCE"                   text,
-"HOSTNAME"                   text
+"HOSTNAME"                   text,
+ filename                    text
 )
 SERVER duckdb_server
 OPTIONS (
@@ -275,7 +282,8 @@ CREATE FOREIGN TABLE public.SolarisBSM (
  "RGID"                      text,
  "PID"                       text,
  "TARGET"                    text,
- "HOSTNAME"                  text
+ "HOSTNAME"                  text,
+ filename                    text
 )
 SERVER duckdb_server
 OPTIONS (
@@ -310,7 +318,8 @@ CREATE FOREIGN TABLE public.SonicWall (
  "catid"                     text,
  "appName"                   text,
  "note"                      text,
- "HOSTNAME"                  text
+ "HOSTNAME"                  text,
+ filename                    text
 )
 SERVER duckdb_server
 OPTIONS (
@@ -326,7 +335,8 @@ CREATE FOREIGN TABLE public.WebLog (
  "AGENT"                     text,
  "PROTOCOL"                  text,
  "LOGTYPE"                   text,
- "REFERRER"                  text
+ "REFERRER"                  text,
+ filename                    text
 )
 SERVER duckdb_server
 OPTIONS (
@@ -343,7 +353,8 @@ CREATE FOREIGN TABLE public.WinApplication (
  "SOURCE"                    text,
  "USER"                      text,
  "RETURN"                    text,
- "HOSTNAME"                  text
+ "HOSTNAME"                  text,
+ filename                    text
 )
 SERVER duckdb_server
 OPTIONS (
@@ -359,7 +370,8 @@ CREATE FOREIGN TABLE public.WinSecurity (
  "EVENTID"                   text,
  "RETURN"                    text,
  "EVENTCOUNT"                text,
- "HOSTNAME"                  text
+ "HOSTNAME"                  text,
+ filename                    text
 
 )
 SERVER duckdb_server
@@ -376,7 +388,8 @@ CREATE FOREIGN TABLE public.WinSystem (
  "RETURN"                    text,
  "EVENTCOUNT"                text,
  "SOURCETYPE"                text,
- "HOSTNAME"                  text
+ "HOSTNAME"                  text,
+ filename                    text
 )
 SERVER duckdb_server
 OPTIONS (
@@ -403,7 +416,8 @@ CREATE FOREIGN TABLE public.iis (
  "srcMac"                     text,
  "dstMac"                     text,
  "proto"                      text,
- "HOSTNAME"                   text
+ "HOSTNAME"                   text,
+ filename                     text
 )
 SERVER duckdb_server
 OPTIONS (
@@ -430,7 +444,8 @@ CREATE FOREIGN TABLE public.linux (
  "srcMac"                     text,
  "dstMac"                     text,
  "proto"                      text,
- "HOSTNAME"                   text
+ "HOSTNAME"                   text,
+ filename                     text
 )
 SERVER duckdb_server
 OPTIONS (
@@ -457,7 +472,8 @@ CREATE FOREIGN TABLE public.mssql (
  "srcMac"                     text,
  "dstMac"                     text,
  "proto"                      text,
- "HOSTNAME"                   text
+ "HOSTNAME"                   text,
+ filename                     text
 )
 SERVER duckdb_server
 OPTIONS (
@@ -484,7 +500,8 @@ CREATE FOREIGN TABLE public.pix (
  "srcMac"                     text,
  "dstMac"                     text,
  "proto"                      text,
- "HOSTNAME"                   text
+ "HOSTNAME"                   text,
+ filename                     text
 )
 SERVER duckdb_server
 OPTIONS (
@@ -511,7 +528,8 @@ CREATE FOREIGN TABLE public.solaris (
  "srcMac"                     text,
  "dstMac"                     text,
  "proto"                      text,
- "HOSTNAME"                   text
+ "HOSTNAME"                   text,
+ filename                     text
 )
 SERVER duckdb_server
 OPTIONS (
@@ -538,7 +556,8 @@ CREATE FOREIGN TABLE public.syslog (
  "srcMac"                     text,
  "dstMac"                     text,
  "proto"                      text,
- "HOSTNAME"                   text
+ "HOSTNAME"                   text,
+ filename                     text
 )
 SERVER duckdb_server
 OPTIONS (
@@ -565,7 +584,8 @@ CREATE FOREIGN TABLE public.winapplication (
  "srcMac"                     text,
  "dstMac"                     text,
  "proto"                      text,
- "HOSTNAME"                   text
+ "HOSTNAME"                   text,
+ filename                     text
 )
 SERVER duckdb_server
 OPTIONS (
