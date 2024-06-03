@@ -108,11 +108,479 @@ OPTIONS (
 select * from public.aggregations_table limit 10;
 ```
 
+And for raw tables the same way:
+```sql
+CREATE FOREIGN TABLE public.CISCORouterLog (
+    "STRING"                text,
+    "CRITICALITY"           text,
+    "TABLE"                 text,
+    "ACTION"                text,
+    "HOSTNAME"              text
+)
+SERVER duckdb_server
+OPTIONS (
+    table 'read_parquet("/var/parquetraw/CISCORouterLog_*.parquet", filename=true)'
+);
+
+-- check
+select * from public.CISCORouterLog limit 10;
+
+CREATE FOREIGN TABLE public.IPTablesFirewall (
+    "INTERFACE"                 text,
+    "DSTADDR"                   text,
+    "SRCPORT"                   text,
+    "PROTO"                     text,
+    "ACTION"                    text,
+    "STRINGS"                   text,
+    "OUT"                       text,
+    "MAC"                       text,
+    "LEN"                       text,
+    "TOS"                       text,
+    "PREC"                      text,
+    "TTL"                       text,
+    "ID"                        text,
+    "WINDOW"                    text,
+    "RES"                       text,
+    "URGP"                      text,
+    "TABLE"                     text,
+    "SRCADDR"                   text,
+    "DSTPORT"                   text,
+    "HOSTNAME"                  text
+)
+SERVER duckdb_server
+OPTIONS (
+    table 'read_parquet("/var/parquetraw/IPTablesFirewall_*.parquet", filename=true)'
+);
+
+CREATE FOREIGN TABLE public.LinuxAudit (
+"EGID"                         text,
+"PROCESS"                      text,
+"TABLE"                        text,
+"EVENTCOUNT"                   text,
+"STRINGS"                      text,
+"RUID"                         text,
+"EUID"                         text,
+"RGID"                         text,
+"RETURNCODE"                   text,
+"SUCCESS"                      text,
+"EVENTID"                      text,
+"TARGET"                       text,
+"HOSTNAME"                     text
+)
+SERVER duckdb_server
+OPTIONS (
+    table 'read_parquet("/var/parquetraw/LinuxAudit_*.parquet", filename=true)'
+);
+
+CREATE FOREIGN TABLE public.MSSQLLog (
+ "EVENTID"                    text,
+ "DBNAME"                     text,
+ "TABLE"                      text,
+ "STRINGS"                    text,
+ "SPID"                       text,
+ "USERNAME"                   text,
+ "CLASS"                      text,
+ "TARGETLOGINNAME"            text,
+ "DBUSERNAME"                 text,
+ "ROLENAME"                   text,
+ "TARGETUSERNAME"             text,
+ "HOSTNAME"                   text
+)
+SERVER duckdb_server
+OPTIONS (
+    table 'read_parquet("/var/parquetraw/MSSQLLog_*.parquet", filename=true)'
+);
+
+CREATE FOREIGN TABLE public.PANFirewall (
+"SOURCEZONE"                  text,
+"TABLE"                       text,
+"BYTES"                       text,
+"NATSRCIP"                    text,
+"BYTESIN"                     text,
+"NATDESTPORT"                 text,
+"LOGFORWARDINGPROFILE"        text,
+"ELAPSEDTIME"                 text,
+"NATDSTIP"                    text,
+"INGRESSINTERFACE"            text,
+"SERIALNUMBER"                text,
+"VIRTUALSYSTEM"               text,
+"DSTADDR"                     text,
+"ACTION"                      text,
+"PACKETS"                     text,
+"DSTPORT"                     text,
+"NATSOURCEPORT"               text,
+"CATEGORY"                    text,
+"EGRESSINTERFACE"             text,
+"DESTINATIONZONE"             text,
+"RULENAME"                    text,
+"SRCADDR"                     text,
+"BYTESOUT"                    text,
+"REPEATCOUNT"                 text,
+"SRCPORT"                     text,
+"VERSION"                     text,
+"TYPE"                        text,
+"FLAGS"                       text,
+"URLCATEGORY"                 text,
+"APPLICATION"                 text,
+"SESSIONID"                   text,
+"HOSTNAME"                    text
+)
+SERVER duckdb_server
+OPTIONS (
+    table 'read_parquet("/var/parquetraw/PANFirewall_*.parquet", filename=true)'
+);
+
+CREATE FOREIGN TABLE public.PIXLog (
+ "SRCADDR"                    text,
+ "CRITICALITY"                text,
+ "SRCPORT"                    text,
+ "ACTION"                     text,
+ "PROTO"                      text,
+ "EVENTID"                    text,
+ "DSTPORT"                    text,
+ "DSTADDR"                    text,
+ "TABLE"                      text,
+ "STRING"                     text,
+ "HOSTNAME"                   text
+)
+SERVER duckdb_server
+OPTIONS (
+    table 'read_parquet("/var/parquetraw/PIXLog_*.parquet", filename=true)'
+);
+
+CREATE FOREIGN TABLE public.SnareServerLog (
+"RETURN"                     text,
+"TABLE"                      text,
+"SOURCE"                     text,
+"ACTION"                     text,
+"USERNAME"                   text,
+"RESOURCE"                   text,
+"HOSTNAME"                   text
+)
+SERVER duckdb_server
+OPTIONS (
+    table 'read_parquet("/var/parquetraw/SnareServerLog_*.parquet", filename=true)'
+);
+
+CREATE FOREIGN TABLE public.SolarisBSM (
+ "EVENTID"                   text,
+ "EVENTCOUNT"                text,
+ "EUID"                      text,
+ "EGID"                      text,
+ "TABLE"                     text,
+ "STRINGS"                   text,
+ "AUID"                      text,
+ "RETURNCODE"                text,
+ "RUID"                      text,
+ "RGID"                      text,
+ "PID"                       text,
+ "TARGET"                    text,
+ "HOSTNAME"                  text
+)
+SERVER duckdb_server
+OPTIONS (
+    table 'read_parquet("/var/parquetraw/SolarisBSM_*.parquet", filename=true)'
+);
+
+-- broken table: has duplicate column name "PROTO"
+CREATE FOREIGN TABLE public.SonicWall (
+ "PRIORITY"                  text,
+ "SRCPORT"                   text,
+ "CATEGORY"                  text,
+ "SRCADDR"                   text,
+ "DSTPORT"                   text,
+ "c"                         text,
+ "n"                         text,
+ "srcInt"                    text,
+ "dstDNS"                    text,
+ "dstInt"                    text,
+ "srcMac"                    text,
+ "dstMac"                    text,
+ "proto"                     text,
+ "TABLE"                     text,
+ "MESSAGE"                   text,
+ "DSTADDR"                   text,
+ "EVENTID"                   text,
+ "PROTO"                     text,
+ "FWADDR"                    text,
+ "app"                       text,
+ "sid"                       text,
+ "appcat"                    text,
+ "appid"                     text,
+ "catid"                     text,
+ "appName"                   text,
+ "note"                      text,
+ "HOSTNAME"                  text
+)
+SERVER duckdb_server
+OPTIONS (
+    table 'read_parquet("/var/parquetraw/SonicWall_*.parquet", filename=true)'
+);
+
+CREATE FOREIGN TABLE public.WebLog (
+ "URL"                       text,
+ "TABLE"                     text,
+ "STRINGS"                   text,
+ "HOSTNAME"                  text,
+ "RETURNCODE"                text,
+ "AGENT"                     text,
+ "PROTOCOL"                  text,
+ "LOGTYPE"                   text,
+ "REFERRER"                  text
+)
+SERVER duckdb_server
+OPTIONS (
+    table 'read_parquet("/var/parquetraw/WebLog_*.parquet", filename=true)'
+);
+
+CREATE FOREIGN TABLE public.WinApplication (
+ "SOURCETYPE"                text,
+ "STRINGS"                   text,
+ "TABLE"                     text,
+ "DATA"                      text,
+ "EVENTCOUNT"                text,
+ "EVENTID"                   text,
+ "SOURCE"                    text,
+ "USER"                      text,
+ "RETURN"                    text,
+ "HOSTNAME"                  text
+)
+SERVER duckdb_server
+OPTIONS (
+    table 'read_parquet("/var/parquetraw/WinApplication_*.parquet", filename=true)'
+);
+
+CREATE FOREIGN TABLE public.WinSecurity (
+ "SOURCE"                    text,
+ "SOURCETYPE"                text,
+ "USER"                      text,
+ "STRINGS"                   text,
+ "TABLE"                     text,
+ "EVENTID"                   text,
+ "RETURN"                    text,
+ "EVENTCOUNT"                text,
+ "HOSTNAME"                  text
+
+)
+SERVER duckdb_server
+OPTIONS (
+    table 'read_parquet("/var/parquetraw/WinSecurity_*.parquet", filename=true)'
+);
+
+CREATE FOREIGN TABLE public.WinSystem (
+ "STRINGS"                   text,
+ "SOURCE"                    text,
+ "TABLE"                     text,
+ "EVENTID"                   text,
+ "USER"                      text,
+ "RETURN"                    text,
+ "EVENTCOUNT"                text,
+ "SOURCETYPE"                text,
+ "HOSTNAME"                  text
+)
+SERVER duckdb_server
+OPTIONS (
+    table 'read_parquet("/var/parquetraw/WinSystem_*.parquet", filename=true)'
+);
+
+-- broken iis has duplicate column name "proto"
+CREATE FOREIGN TABLE public.iis (
+ "EVENTID"                    text,
+ "SRCPORT"                    text,
+ "MESSAGE"                    text,
+ "TABLE"                      text,
+ "FWADDR"                     text,
+ "CATEGORY"                   text,
+ "SRCADDR"                    text,
+ "DSTPORT"                    text,
+ "PROTO"                      text,
+ "DSTADDR"                    text,
+ "PRIORITY"                   text,
+ "c"                          text,
+ "n"                          text,
+ "srcInt"                     text,
+ "dstInt"                     text,
+ "srcMac"                     text,
+ "dstMac"                     text,
+ "proto"                      text,
+ "HOSTNAME"                   text
+)
+SERVER duckdb_server
+OPTIONS (
+    table 'read_parquet("/var/parquetraw/iis_*.parquet", filename=true)'
+);
+
+-- broken linux has duplicate column name "proto" 
+CREATE FOREIGN TABLE public.linux (
+ "EVENTID"                    text,
+ "SRCPORT"                    text,
+ "MESSAGE"                    text,
+ "TABLE"                      text,
+ "FWADDR"                     text,
+ "CATEGORY"                   text,
+ "SRCADDR"                    text,
+ "DSTPORT"                    text,
+ "PROTO"                      text,
+ "DSTADDR"                    text,
+ "PRIORITY"                   text,
+ "c"                          text,
+ "n"                          text,
+ "srcInt"                     text,
+ "dstInt"                     text,
+ "srcMac"                     text,
+ "dstMac"                     text,
+ "proto"                      text,
+ "HOSTNAME"                   text
+)
+SERVER duckdb_server
+OPTIONS (
+    table 'read_parquet("/var/parquetraw/linux_*.parquet", filename=true)'
+);
+
+-- mssql has duplicate column name "proto" 
+CREATE FOREIGN TABLE public.mssql (
+ "EVENTID"                    text,
+ "SRCPORT"                    text,
+ "MESSAGE"                    text,
+ "TABLE"                      text,
+ "FWADDR"                     text,
+ "CATEGORY"                   text,
+ "SRCADDR"                    text,
+ "DSTPORT"                    text,
+ "PROTO"                      text,
+ "DSTADDR"                    text,
+ "PRIORITY"                   text,
+ "c"                          text,
+ "n"                          text,
+ "srcInt"                     text,
+ "dstInt"                     text,
+ "srcMac"                     text,
+ "dstMac"                     text,
+ "proto"                      text,
+ "HOSTNAME"                   text
+)
+SERVER duckdb_server
+OPTIONS (
+    table 'read_parquet("/var/parquetraw/mssql_*.parquet", filename=true)'
+);
+
+-- pix has duplicate column name "proto" 
+CREATE FOREIGN TABLE public.pix (
+ "EVENTID"                    text,
+ "SRCPORT"                    text,
+ "MESSAGE"                    text,
+ "TABLE"                      text,
+ "FWADDR"                     text,
+ "CATEGORY"                   text,
+ "SRCADDR"                    text,
+ "DSTPORT"                    text,
+ "PROTO"                      text,
+ "DSTADDR"                    text,
+ "PRIORITY"                   text,
+ "c"                          text,
+ "n"                          text,
+ "srcInt"                     text,
+ "dstInt"                     text,
+ "srcMac"                     text,
+ "dstMac"                     text,
+ "proto"                      text,
+ "HOSTNAME"                   text
+)
+SERVER duckdb_server
+OPTIONS (
+    table 'read_parquet("/var/parquetraw/pix_*.parquet", filename=true)'
+);
+
+-- solaris has duplicate column name "proto"
+CREATE FOREIGN TABLE public.solaris (
+ "EVENTID"                    text,
+ "SRCPORT"                    text,
+ "MESSAGE"                    text,
+ "TABLE"                      text,
+ "FWADDR"                     text,
+ "CATEGORY"                   text,
+ "SRCADDR"                    text,
+ "DSTPORT"                    text,
+ "PROTO"                      text,
+ "DSTADDR"                    text,
+ "PRIORITY"                   text,
+ "c"                          text,
+ "n"                          text,
+ "srcInt"                     text,
+ "dstInt"                     text,
+ "srcMac"                     text,
+ "dstMac"                     text,
+ "proto"                      text,
+ "HOSTNAME"                   text
+)
+SERVER duckdb_server
+OPTIONS (
+    table 'read_parquet("/var/parquetraw/solaris_*.parquet", filename=true)'
+);
+
+-- syslog has duplicate column name "proto"
+CREATE FOREIGN TABLE public.syslog (
+ "EVENTID"                    text,
+ "SRCPORT"                    text,
+ "MESSAGE"                    text,
+ "TABLE"                      text,
+ "FWADDR"                     text,
+ "CATEGORY"                   text,
+ "SRCADDR"                    text,
+ "DSTPORT"                    text,
+ "PROTO"                      text,
+ "DSTADDR"                    text,
+ "PRIORITY"                   text,
+ "c"                          text,
+ "n"                          text,
+ "srcInt"                     text,
+ "dstInt"                     text,
+ "srcMac"                     text,
+ "dstMac"                     text,
+ "proto"                      text,
+ "HOSTNAME"                   text
+)
+SERVER duckdb_server
+OPTIONS (
+    table 'read_parquet("/var/parquetraw/syslog_*.parquet", filename=true)'
+);
+
+-- winapplication has duplicate column name "proto"
+CREATE FOREIGN TABLE public.winapplication (
+ "EVENTID"                    text,
+ "SRCPORT"                    text,
+ "MESSAGE"                    text,
+ "TABLE"                      text,
+ "FWADDR"                     text,
+ "CATEGORY"                   text,
+ "SRCADDR"                    text,
+ "DSTPORT"                    text,
+ "PROTO"                      text,
+ "DSTADDR"                    text,
+ "PRIORITY"                   text,
+ "c"                          text,
+ "n"                          text,
+ "srcInt"                     text,
+ "dstInt"                     text,
+ "srcMac"                     text,
+ "dstMac"                     text,
+ "proto"                      text,
+ "HOSTNAME"                   text
+)
+SERVER duckdb_server
+OPTIONS (
+    table 'read_parquet("/var/parquetraw/winapplication_*.parquet", filename=true)'
+);
+
+
+```
+
 Create user for grafana datasource:
 ```sql
 CREATE USER grafanareader WITH PASSWORD 'password';
 GRANT USAGE ON SCHEMA public TO grafanareader;
-GRANT SELECT ON public.aggregations_table TO grafanareader;
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO grafanareader;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO grafanareader;
 ```
 
 test
