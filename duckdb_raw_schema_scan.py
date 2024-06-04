@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 # apt install python3-pip
-# pip3 install duckdb pandas
+# pip3 install duckdb
 
 import duckdb
 import os
