@@ -35,7 +35,7 @@ for file in all_files:
 ) \n\
 SERVER duckdb_server \n\
 OPTIONS ( \n\
-    table 'read_parquet(\"/var/parquetraw/{filepattern}_*.parquet\", filename=true)' \n\
+    table 'read_parquet(\"{watched_dir}{filepattern}_*.parquet\", filename=true)' \n\
 ); \n\
 ")
 
